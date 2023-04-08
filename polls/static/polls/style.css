@@ -4,3 +4,7 @@ li a {
 body {
     background: white url("images/background.png") no-repeat;
 }
+#res {
+    width:200px;
+    height:100px;
+}

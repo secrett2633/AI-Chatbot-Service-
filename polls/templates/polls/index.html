@@ -2,13 +2,39 @@
 
 <link rel="stylesheet" href="{% static 'polls/style.css' %}">
 
+<form action="{% url 'polls:createform' %}" method="POST">
+{% csrf_token %}
+<div>
+    <label for="studentID">입력</label>
+    <input type="text" name="studentID" id="studentID">
+</div>
+<div>
+    <label for="name">출력</label>
+    <input type="text" name="name" id="name">
+</div>
+<br>
+<input type="submit" value="제출">
+</form>
+
+{% if form %}
+    <h1>TEST</h1>
+    <h3 id = "res">{{ form.query }}</h3>
+{% endif %}
+
+
+
+
+
+
+
+{% comment %} 
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
         {% comment %} <li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li> {% endcomment %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+        {% comment %} <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li> {% endcomment %}
+    {% comment %} {% endfor %} {% endcomment %}
+    {% comment %} </ul> {% endcomment %}
+{% comment %} {% else %} {% endcomment %}
+    {% comment %} <p>No polls are available.</p> {% endcomment %}
+{% comment %} {% endif %}  {% endcomment %}

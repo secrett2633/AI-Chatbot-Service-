@@ -1,0 +1,4 @@
+polls/.env
+polls/__pycache__
+polls/migrations
+mysite/__pycache__
