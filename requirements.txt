@@ -1,3 +1,4 @@
 openai
 dotenv
 requests
+django-webpush

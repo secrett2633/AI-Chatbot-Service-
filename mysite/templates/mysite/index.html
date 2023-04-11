@@ -1,8 +1,8 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+<link rel="stylesheet" href="{% static 'mysite/style.css' %}">
 
-<form action="{% url 'polls:createform' %}" method="POST">
+<form action="{% url 'mysite:createform' %}" method="POST">
 {% csrf_token %}
 <div>
     <label for="studentID">입력</label>
@@ -23,11 +23,6 @@
 {% load webpush_notifications %}
 {% webpush_header %}
 {% webpush_button %}
-
-
-
-
-
 
 {% comment %} 
 {% if latest_question_list %}

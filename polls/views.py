@@ -1,14 +1,16 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, QueryDict
 from django.template import loader
-from .models import Question, Choice
+from .models import Question, Choice, Querys
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .forms import StdForm
 from .gpt35 import answer
 from .translate import get_translate
-
+from django.core.mail import send_mail, EmailMessage
+from django.template.loader import render_to_string
+from .webpush import episode_webpush
+from webpush import send_user_notification
 
 class IndexView(generic.ListView):
     template_name = "polls/index.html"
@@ -66,12 +68,26 @@ def vote(request, question_id):
 def createform(request):
     # if this is a POST request we need to process the form data
     if request.method == "POST":
-        form = StdForm(request.POST.copy())
-        # query = get_translate(answer(get_translate(form["name"].value(), True)), False)
-        query = "AAAA"
-        form.data['query'] = query
-        # print(form, form["query"], form["name"])
-    return render(request, "polls/index.html", {"form": form})
+        form = QueryDict('', mutable=True)
+        form.update(request.POST)
+        form['query'] = get_translate(answer(get_translate(form["name"], True)), False)
+        send_mail(
+            form["name"],
+            form['query'],
+            "django2633@gmail.com",
+            ["secrett2633@kakao.com"],
+            fail_silently=False,
+        )
+        payload = {"head": form["name"], "body": form['query']}
+        user = request.user #secrett
+        send_user_notification(user=user, payload=payload, ttl=1000)
+        
+        # query = Querys()
+        # query.studentID = request.POST.get('studentID')
+        # query.name = request.POST.get('name')
+        # query.query = "test"
+        # query.save()
+    return render(request, "polls/index.html", {"form": form["query"]})
 
 
 # def index(request):
