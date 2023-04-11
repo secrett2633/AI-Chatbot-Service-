@@ -89,7 +89,17 @@ def createform(request):
         # query.save()
     return render(request, "polls/index.html", {"form": form["query"]})
 
-
+def chat(request):
+    return render(request, "polls/chat.html", {"name" : "질문을 입력해주세요"})
+def chatting(request):
+    if request.method == "POST":
+        request.session["name"] = request.POST.get('quest')
+        form = [[request.session["name"], get_translate(answer(get_translate(request.session["name"], True)), False)]]        
+        if "form" not in request.session: 
+            request.session["form"] = form            
+        else: 
+            request.session["form"] += form
+    return render(request, "polls/chat.html", {"form": request.session['form'], "name" : request.session['name']})
 # def index(request):
 #     latest_question_list = Question.objects.order_by("-pub_date")[:5]
 #     context = {"latest_question_list": latest_question_list}

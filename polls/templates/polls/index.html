@@ -29,14 +29,13 @@
 
 
 
-{% comment %} 
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        {% comment %} <li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li> {% endcomment %}
-        {% comment %} <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li> {% endcomment %}
-    {% comment %} {% endfor %} {% endcomment %}
-    {% comment %} </ul> {% endcomment %}
-{% comment %} {% else %} {% endcomment %}
-    {% comment %} <p>No polls are available.</p> {% endcomment %}
-{% comment %} {% endif %}  {% endcomment %}
+        <li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}  {% endcomment %}

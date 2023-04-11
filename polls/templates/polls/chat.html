@@ -1,0 +1,36 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+<script src="{% static 'polls/chat.js' %}"></script>
+<div id="container">
+	<aside>
+		<header> <input type="text" placeholder="search"> </header>
+		<ul>
+			<li>
+				<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+				<div> <h2>{{ name }}</h2> </div>
+			</li>
+		</ul>
+	</aside>
+	<main>
+		<ul id="chat">
+			{% if form %}
+				{% for a, b in form %}
+				<li class="me">
+					<div class="entete"> <h2>나</h2> </div>
+					<div class="message"> {{ a }} </div>
+				</li>
+				<li class="you">
+					<div class="entete"> <h2>Turbo</h2> </div> 
+					<div class="message"> {{ b }} </div>
+				</li>		
+				{% endfor %}
+			{% endif %}
+		</ul>
+		<footer>			
+			<form action="{% url 'polls:chatting' %}" method="POST">
+			{% csrf_token %}
+			<input placeholder="질문을 입력해주세요!" id="my-textarea" name="quest"></input>   
+			</form>
+		</footer>
+	</main>
+</div>
