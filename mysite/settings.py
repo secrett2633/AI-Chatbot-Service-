@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "polls.apps.PollsConfig",
+    "polls",
     "debug_toolbar",
+    'webpush',
 ]
 
 MIDDLEWARE = [
@@ -143,5 +144,19 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.redirects.RedirectsPanel',
     'debug_toolbar.panels.profiling.ProfilingPanel',
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'django2633@gmail.com'
+EMAIL_HOST_PASSWORD = 'udjqzcamxtewqqme'
+EMAIL_USE_SSL = False
+
+WEBPUSH_SETTINGS = {
+    "VAPID_PUBLIC_KEY": "BEEH8HrbT-qdtpMVxpgrGFBHDSpkrja6RDAgWU8TRdhX1KI6CpQK2dokS5CZzQW_jjqW_LKh0RyR46PH3sgRyfU",
+    "VAPID_PRIVATE_KEY":"jppcuOEQFnGULpNZ_5_LOc3b3kHf0ooelP-IqyspiHA",
+    "VAPID_ADMIN_EMAIL": "django2633@gmail.com"
+}
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

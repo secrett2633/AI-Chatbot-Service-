@@ -1,20 +1,87 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'polls/style.css' %}">
-<script src="{% static 'polls/chat.js' %}"></script>
+<link rel="stylesheet" href="{% static 'polls/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'polls/login-register.css' %}">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome//4.0.3/css/font-awesome.css"> 
+<script src="{% static 'polls/jquery-1.10.2.js' %}"></script>
+<script src="{% static 'polls/bootstrap.js' %}"></script>
+<script src="{% static 'polls/login-register.js' %}"></script>
+
 <div id="container">
+	{% comment %} <div id = "accounts"> 
+		{% if user.is_authenticated %}
+			<a class="btn big-login" data-toggle="modal" href="{% url 'polls:logout' %}">Log out</a>
+		{% else %}
+		<a class="btn big-login" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">Log in</a>		
+		<div class="modal fade login" id="loginModal">
+			<div class="modal-dialog login animated">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Login1</h4>
+					</div>
+					<div class="modal-body">
+						<div class="box">
+							<div class="content">   
+								<div class="error"></div>
+								<div class="form loginBox">
+									<form method="" action="" accept-charset="UTF-8">
+									<input id="email" class="form-control" type="text" placeholder="이메일" name="email">
+									<input id="password" class="form-control" type="password" placeholder="비밀번호" name="password">
+									<input class="btn btn-default btn-login" type="button" value="로그인" onclick="loginAjax()">
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="box">
+							<div class="content registerBox" style="display:none;">
+							<div class="form">
+								<form method="" html="{:multipart=>true}" data-remote="true" action="" accept-charset="UTF-8">
+								<input id="email" class="form-control" type="text" placeholder="이메일" name="email">
+								<input id="password" class="form-control" type="password" placeholder="비밀번호" name="password">
+								<input id="password_confirmation" class="form-control" type="password" placeholder="비밀번호 확인" name="password_confirmation">
+								<input class="btn btn-default btn-register" type="button" value="가입하기" name="commit">
+								</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="forgot login-footer">
+							<input class="btn btn-default btn-login" type="button" value="회원가입" onclick="showRegisterForm()">
+						</div>
+						<div class="forgot register-footer" style="display:none">
+							<input class="btn btn-default btn-login" type="button" value="로그인" onclick="showLoginForm()">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+	</div> {% endcomment %}
 	<aside>
 		<header> <input type="text" placeholder="search"> </header>
+		<ul> 
+			<li>
+				<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+				<div> <h2>{{ name }}</h2> </div> 
+			</li>
+		</ul>
 		<ul>
 			<li>
 				<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
-				<div> <h2>{{ name }}</h2> </div>
+				<div> <h2>Settings</h2> </div>
 			</li>
+			<li>
+				<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+				<div> <h2>Clear All</h2> </div>
+			</li>				
 		</ul>
 	</aside>
 	<main>
 		<ul id="chat">
-			{% if form %}
-				{% for a, b in form %}
+			{% if question %}
+				{% for a, b in question %}
 				<li class="me">
 					<div class="entete"> <h2>나</h2> </div>
 					<div class="message"> {{ a }} </div>
@@ -27,10 +94,13 @@
 			{% endif %}
 		</ul>
 		<footer>			
-			<form action="{% url 'polls:chatting' %}" method="POST">
+			<form action="{% url 'polls:chat' %}" method="POST">
 			{% csrf_token %}
 			<input placeholder="질문을 입력해주세요!" id="my-textarea" name="quest"></input>   
 			</form>
 		</footer>
 	</main>
 </div>
+
+<script src="{% static 'polls/chat.js' %}"></script>
+

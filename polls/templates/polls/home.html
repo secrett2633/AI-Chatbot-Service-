@@ -1,0 +1,31 @@
+<div>
+    <h3><a href="accounts">회원가입</a></h3>
+    <h3><a href="login">로그인</a></h3>
+    <h3><a href="logout">로그아웃</a></h3>
+</div>
+
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Login or Register</h2>
+      <form method="post" action="{% url 'modal_login_register' %}">
+        {% csrf_token %}
+        {% if error_message %}
+          <p class="error">{{ error_message }}</p>
+        {% endif %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn btn-secondary" name="register">Register</button>
+      </form>
+    </div>
+  
+  </div>
+  {% load static %}
+  <script src="{% static 'polls/chat.js' %}"></script>

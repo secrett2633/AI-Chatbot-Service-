@@ -6,5 +6,11 @@ function handleEnterKey(event) {
     }
   }
   
-  var textarea = document.getElementById("my-textarea");
-  textarea.addEventListener("keydown", handleEnterKey);
+var textarea = document.getElementById("my-textarea");
+textarea.addEventListener("keydown", handleEnterKey);
+
+document.addEventListener("DOMContentLoaded", function() {
+  const element = document.querySelector('#chat');
+  element.scrollTop = element.scrollHeight;
+});
+
