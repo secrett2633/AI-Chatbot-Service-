@@ -14,3 +14,47 @@ document.addEventListener("DOMContentLoaded", function() {
   element.scrollTop = element.scrollHeight;
 });
 
+
+const body = document.querySelector('body');
+const modal = document.querySelector('.modal');
+const btnOpenPopup = document.querySelector('.btn-open-popup');
+
+
+btnOpenPopup.addEventListener('click', () => {
+  modal.classList.toggle('show');
+
+  if (modal.classList.contains('show')) {
+    body.style.overflow = 'hidden';
+  }
+});
+
+modal.addEventListener('click', (event) => {
+  if (event.target === modal) {
+    modal.classList.toggle('show');
+
+    if (!modal.classList.contains('show')) {
+      body.style.overflow = 'auto';
+    }
+  }
+});
+
+
+const modal1 = document.querySelector('.modal1');
+const btn1OpenPopup = document.querySelector('.btn1-open-popup');
+btn1OpenPopup.addEventListener('click', () => {
+  modal1.classList.toggle('show');
+
+  if (modal1.classList.contains('show')) {
+    body.style.overflow = 'hidden';
+  }
+});
+
+modal1.addEventListener('click', (event) => {
+  if (event.target === modal1) {
+    modal1.classList.toggle('show');
+
+    if (!modal1.classList.contains('show')) {
+      body.style.overflow = 'auto';
+    }
+  }
+});

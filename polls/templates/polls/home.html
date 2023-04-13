@@ -1,31 +1,25 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+<link rel="stylesheet" href="{% static 'polls/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'polls/login-register.css' %}">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome//4.0.3/css/font-awesome.css"> 
+<script src="{% static 'polls/jquery-1.10.2.js' %}"></script>
+<script src="{% static 'polls/bootstrap.js' %}"></script>
+<script src="{% static 'polls/login-register.js' %}"></script>
 <div>
     <h3><a href="accounts">회원가입</a></h3>
     <h3><a href="login">로그인</a></h3>
     <h3><a href="logout">로그아웃</a></h3>
 </div>
-
-<div id="myModal" class="modal">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Login or Register</h2>
-      <form method="post" action="{% url 'modal_login_register' %}">
-        {% csrf_token %}
-        {% if error_message %}
-          <p class="error">{{ error_message }}</p>
-        {% endif %}
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit" class="btn btn-primary">Login</button>
-        <button type="submit" class="btn btn-secondary" name="register">Register</button>
-      </form>
-    </div>
-  
+<div class="container">
+  <div class="row">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+           <a class="btn big-login" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">Log in</a>
+           <a class="btn big-register" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">Register</a></div>
+      <div class="col-sm-4"></div>
   </div>
-  {% load static %}
-  <script src="{% static 'polls/chat.js' %}"></script>
+
+
+  
+</div>

@@ -37,6 +37,10 @@ def createform(request):
     return render(request, "polls/index.html", {"form": form["query"]})
 
 def chat(request):
+    try:
+        name = request.session['name']
+    except:
+        name = "질문을 입력해주세요"
     if request.method == "POST":
         request.session["name"] = request.POST.get('quest')
         # form = [[request.session["name"], get_translate(answer(get_translate(request.session["name"], True)), False)]]        
@@ -46,9 +50,13 @@ def chat(request):
         else: 
             request.session["form"] += form
         return render(request, "polls/chat.html", {"question": request.session['form'], "name" : request.session['name']})
-    return render(request, "polls/chat.html", {"name" : "질문을 입력해주세요"})
+    return render(request, "polls/chat.html", {"name" : name})
 
 def signup(request):
+    try:
+        name = request.session['name']
+    except:
+        name = "질문을 입력해주세요"
     if request.method == 'POST':
         if request.POST['password1'] == request.POST['password2']:
             user = User.objects.create_user(
@@ -56,28 +64,35 @@ def signup(request):
                 password=request.POST['password1'],
                 email=request.POST['email'],)
             auth.login(request, user)
-            return render(request, "polls/chat.html", {"name" : "질문을 입력해주세요"})
-        return render(request, 'polls/signup.html')
-    return render(request, 'polls/signup.html')
-
+            return render(request, "polls/chat.html", {"name" : name})
+        return render(request, "polls/chat.html", {"name" : name})
+    return render(request, "polls/chat.html", {"name" : name})
 def login(request):
+    try:
+        name = request.session['name']
+    except:
+        name = "질문을 입력해주세요"
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return render(request, "polls/chat.html", {"name" : "질문을 입력해주세요"})
+            return render(request, "polls/chat.html", {"name" : name})
         else:
-            return render(request, 'polls/login.html', {'error': 'username or password is incorrect.'})
+            return render(request, "polls/chat.html", {"name" : name})
     else:
-        return render(request, 'polls/login.html')
+        return render(request, "polls/chat.html", {"name" : name})
 
 
 # 로그아웃
 def logout(request):
+    try:
+        name = request.session['name']
+    except:
+        name = "질문을 입력해주세요"
     auth.logout(request)
-    return render(request, "polls/chat.html", {"name" : "질문을 입력해주세요"})
+    return render(request, "polls/chat.html", {"name" : name})
 
 # home
 def home(request):
