@@ -4,14 +4,15 @@ import datetime
 from django.contrib import admin
 import os
 import openai
-from dotenv import load_dotenv
 import requests
 from django.contrib.auth import get_user_model
 from webpush import send_user_notification, send_group_notification
 from webpush.utils import send_to_subscription
 import json
-load_dotenv()
-
+with open('./.env') as f:
+    for line in f:
+        key, value = line.strip().split('=')
+        os.environ[key] = value
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published")
@@ -51,7 +52,6 @@ def answer(query):
 
 
 def get_translate(text, language):
-    load_dotenv()
     client_id = os.getenv("client_id")
     client_secret = os.getenv("client_secret")
     if language: a='ko'; b = "en"

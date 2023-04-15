@@ -58,3 +58,23 @@ modal1.addEventListener('click', (event) => {
     }
   }
 });
+
+const modal2 = document.querySelector('.modal2');
+const btn2OpenPopup = document.querySelector('.btn2-open-popup');
+btn2OpenPopup.addEventListener('click', () => {
+  modal2.classList.toggle('show');
+
+  if (modal2.classList.contains('show')) {
+    body.style.overflow = 'hidden';
+  }
+});
+
+modal2.addEventListener('click', (event) => {
+  if (event.target === modal2) {
+    modal2.classList.toggle('show');
+
+    if (!modal2.classList.contains('show')) {
+      body.style.overflow = 'auto';
+    }
+  }
+});

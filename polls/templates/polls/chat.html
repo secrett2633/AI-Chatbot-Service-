@@ -29,31 +29,43 @@
 		</div>
 	</div>	
 </div>
+<div class="modal2">
+	<div class="modal2_body">
+		<div style="text-align: center;">
+			<h1>문의하기</h1>
+			<form action="{% url 'polls:contact' %}" method="POST">
+				{% csrf_token %}
+				<input name="email" type="email" placeholder = "이메일"><br>
+				<input name="content" type="text" placeholder = "문의내용"><br>
+				<input type="submit" class="btn btn-primary" value="제출">
+			</form>
+		</div>
+	</div>	
+</div>
 <div id="container">	
 	<aside>
 		<header> <input type="text" placeholder="search"> </header>
 		<ul> 
-			<li>
-				<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+			<li class="qu">
 				<div> <h2>{{ name }}</h2> </div> 
 			</li>
 		</ul>
 		<ul>
-			<li>
+			<li class="btn2-open-popup">
+				<div> <h2 class="btn2-open-popup auth">문의하기</h2> </div>
+			</li>
+			<li class="btn1-open-popup">
 				{% if user.is_authenticated %}
 				<img><div></div>
 				{% else %}
-				<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
-				<div> <a class="btn1-open-popup auth">회원가입</a> </div>
+				<div> <h2 class="btn1-open-popup auth">회원가입</h2> </div>
 				{% endif %}				
 			</li>				
-			<li>
+			<li class="btn-open-popup">
 				{% if user.is_authenticated %}
-				<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
-				<div> <a href="{% url 'polls:logout' %}" class = "auth"> 로그아웃 </div>
+				<div> <h2 href="{% url 'polls:logout' %}" class = "auth">로그아웃</h2> </div>
 				{% else %}
-				<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
-				<div> <a class="btn-open-popup auth">로그인</a> </div>
+				<div> <h2 class="btn-open-popup auth">로그인</h2> </div>
 				{% endif %}				
 			</li>				
 		</ul>

@@ -17,7 +17,7 @@ body{
 aside{
 	width:260px;
     height:100%;
-	background-color:#3b3e49;
+	background-color:#222121;
 	display:inline-block;
 	font-size:15px;
 	vertical-align:top;
@@ -306,6 +306,45 @@ main footer a{
 	transform: translateX(-50%) translateY(-50%);
   }
 
+  .modal2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	height: 100%;
+
+	display: none;
+
+	background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal2.show {
+	display: block;
+  }
+
+  .modal2_body {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+
+	width: 400px;
+	height: 600px;
+
+	padding: 40px;
+
+	text-align: center;
+
+	background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+	transform: translateX(-50%) translateY(-50%);
+  }
 .auth {
 	color : white;
+}
+
+.btn-open-popup, .btn1-open-popup, .btn2-open-popup, .qu{
+	 text-align: center;
 }

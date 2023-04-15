@@ -17,7 +17,8 @@ def createform(request):
     if request.method == "POST":
         form = QueryDict('', mutable=True)
         form.update(request.POST)
-        form['query'] = get_translate(answer(get_translate(form["name"], True)), False)
+        # form['query'] = get_translate(answer(get_translate(form["name"], True)), False)
+        form['query'] = "TEST"
         send_mail(
             form["name"],
             form['query'],
@@ -34,22 +35,60 @@ def createform(request):
         # query.name = request.POST.get('name')
         # query.query = "test"
         # query.save()
-    return render(request, "polls/index.html", {"form": form["query"]})
+    try:
+        return render(request, "polls/index.html", {"form": form["query"]})
+    except:
+        return render(request, "polls/index.html")
 
-def chat(request):
+def contact(request):
+    # if this is a POST request we need to process the form data
+    if request.method == "POST":
+        send_mail(
+            request.POST.get('email') + "님이 보낸 메일입니다.",
+            request.POST.get('content'),
+            "django2633@gmail.com",
+            ["secrett2633@kakao.com"],
+            fail_silently=False,
+        )
+        
+        send_mail(
+            "[ChatBot] 성공적으로 문의가 등록되었습니다.",
+            '''당사 서비스에 관심을 가지고 시간을 내어 문의해 주셔서 감사합니다.
+            더 나은 지원을 위해 귀하의 질문에 대한 자세한 정보를 제공해 주시겠습니까? 
+            이것은 귀하의 요구 사항을 이해하고 가장 적절한 솔루션을 제공하는 데 도움이 될 것입니다.
+            추가 질문이나 우려 사항이 있는 경우 주저하지 말고 문의해 주십시오. 
+            우리는 항상 당신을 돕기 위해 있습니다.
+            양해해 주셔서 감사합니다.''',
+            "django2633@gmail.com",
+            [request.POST.get('email'), "secrett2633@kakao.com"],
+            fail_silently=False,
+        )
     try:
         name = request.session['name']
     except:
         name = "질문을 입력해주세요"
+    return render(request, "polls/chat.html", {"name" : name})
+
+def chat(request):    
     if request.method == "POST":
         request.session["name"] = request.POST.get('quest')
-        # form = [[request.session["name"], get_translate(answer(get_translate(request.session["name"], True)), False)]]        
-        form = [[request.session["name"], "NONE"]]        
+        now = get_translate(request.session["name"], True)
+        print(now)
+        now = answer(now)
+        print(now)
+        now = get_translate(now, True)
+        print(now)
+        form = [[request.session["name"], now]]        
+        # form = [[request.session["name"], "NONE"]]        
         if "form" not in request.session: 
             request.session["form"] = form            
         else: 
             request.session["form"] += form
         return render(request, "polls/chat.html", {"question": request.session['form'], "name" : request.session['name']})
+    try:
+        name = request.session['name']
+    except:
+        name = "질문을 입력해주세요"
     return render(request, "polls/chat.html", {"name" : name})
 
 def signup(request):
